@@ -1,0 +1,32 @@
+:root { --bg:#0b1220; --panel:#121b2e; --text:#e8eefc; --muted:#9fb0d0; --good:#1fd286; --warn:#ffcc00; --bad:#ff4d6d; }
+body { margin:0; font-family: system-ui, Arial; background: var(--bg); color: var(--text); }
+.center { min-height:100vh; display:flex; justify-content:center; align-items:center; padding:24px; }
+.layout { min-height:100vh; }
+.topbar { display:flex; justify-content:space-between; align-items:center; padding:16px 20px; border-bottom:1px solid #223055; }
+.title { font-weight:700; font-size:18px; }
+.grid { display:grid; grid-template-columns: 420px 1fr; gap:16px; padding:16px; }
+.panel { display:flex; flex-direction:column; gap:12px; }
+.card { background: var(--panel); border:1px solid #223055; border-radius:12px; padding:14px; }
+.card.mini { padding:12px; }
+.muted { color: var(--muted); font-size: 13px; }
+.big { font-size: 16px; font-weight:700; }
+.row { display:flex; justify-content:space-between; align-items:center; gap:12px; }
+.grid2 { display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin:12px 0; }
+.btn { padding:10px 12px; border-radius:10px; border:1px solid #33466f; background:#182447; color:var(--text); cursor:pointer; }
+.btn:hover { filter: brightness(1.1); }
+.btn.danger { border-color:#6c2335; background:#2a1620; }
+.error { margin-top:10px; color: var(--bad); }
+label { display:block; margin-top:10px; margin-bottom:6px; color: var(--muted); }
+input { width:100%; padding:10px; border-radius:10px; border:1px solid #33466f; background:#0f1831; color:var(--text); }
+.list { display:flex; flex-direction:column; gap:8px; margin-top:10px; }
+.listItem { text-align:left; width:100%; border-radius:12px; padding:10px; border:1px solid #223055; background:#0f1831; color:var(--text); cursor:pointer; }
+.listItem.active { outline:2px solid #4b73ff; }
+.listItem.safe { border-left:4px solid var(--good); }
+.listItem.mon { border-left:4px solid var(--warn); }
+.listItem.attn { border-left:4px solid var(--bad); }
+.name { font-weight:700; }
+.badge { padding:6px 10px; border-radius:999px; border:1px solid #33466f; background:#0f1831; }
+.pill { padding:4px 8px; border-radius:999px; background:#2a1620; border:1px solid #6c2335; font-size:12px; }
+.warn { margin-top:10px; padding:10px; border-radius:12px; background:#2a2410; border:1px solid #6a5a18; color:#ffe08a; }
+
+@media (max-width: 980px) { .grid { grid-template-columns: 1fr; } }
