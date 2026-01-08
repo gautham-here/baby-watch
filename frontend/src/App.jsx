@@ -1,36 +1,30 @@
-import React, { useEffect, useState } from "react";
-import { authApi } from "./api/auth";
+import React from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./components/Login";
+import Register from "./components/Register";
+import About from "./components/About";
 import Dashboard from "./components/Dashboard";
 import "./styles.css";
 
+function ProtectedRoute({ children }) {
+  const token = localStorage.getItem("token");
+  return token ? children : <Navigate to="/login" />;
+}
+
 export default function App() {
-  const [session, setSession] = useState({ ok: false, role: null, name: null, loading: true });
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) return setSession(s => ({ ...s, loading: false }));
-
-    authApi.me()
-      .then(res => setSession({ ok: true, role: res.data.role, name: res.data.name, loading: false }))
-      .catch(() => {
-        localStorage.clear();
-        setSession({ ok: false, role: null, name: null, loading: false });
-      });
-  }, []);
-
-  const onLogin = ({ token, role, name }) => {
-    localStorage.setItem("token", token);
-    setSession({ ok: true, role, name, loading: false });
-  };
-
-  const onLogout = () => {
-    localStorage.clear();
-    setSession({ ok: false, role: null, name: null, loading: false });
-  };
-
-  if (session.loading) return <div className="center">Loading...</div>;
-  return session.ok
-    ? <Dashboard session={session} onLogout={onLogout} />
-    : <Login onLogin={onLogin} />;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/dashboard" element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        } />
+        <Route path="/" element={<Navigate to="/login" />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
